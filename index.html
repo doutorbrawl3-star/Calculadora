@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <link rel="icon" type="image/jpeg" href="ca.jpg">
+    <link rel="apple-touch-icon" href="ca.jpg">
+    <link rel="manifest" href="manifest.json">
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#27ae60"> 
+
+    <title>Calculadora da Monalisa</title>
+
+    <style>
+        /* O SEU CSS JUNTO AQUI */
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 25px;
+        }
+
+        .container-inputs {
+            margin-bottom: 20px;
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 15px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box; /* Garante que não passe da largura da tela */
+        }
+
+        button {
+            width: 100%;
+            padding: 18px;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: opacity 0.2s;
+        }
+
+        button:active {
+            opacity: 0.8;
+        }
+
+        .btn-add { background-color: #3498db; }
+        .btn-rem { background-color: #e74c3c; }
+        .btn-soma { background-color: #2ecc71; font-size: 22px; margin-top: 10px; }
+
+        #resultado {
+            margin-top: 25px;
+            text-align: center;
+            color: #2c3e50;
+            font-size: 26px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📊 Calculadora de Boletos</h1>
+
+    <div id="container-boletos" class="container-inputs">
+        <input type="number" class="boleto" oninput="somarBoletos()" placeholder="Valor do Boleto 1">
+        <input type="number" class="boleto" oninput="somarBoletos()" placeholder="Valor do Boleto 2">
+    </div>
+
+    <button class="btn-add" onclick="adicionarCampo()">+ Adicionar Outro Boleto</button>
+    <button class="btn-rem" onclick="removerUltimo()">- Remover Último</button>
+    <button class="btn-soma" onclick="somarBoletos()">Somar Tudo</button>
+
+    <h2 id="resultado">Total: R$ 0,00</h2>
+
+    <script>
+        /* O SEU JAVASCRIPT JUNTO AQUI */
+        function somarBoletos() {
+            const todosOsBoletos = document.querySelectorAll('.boleto');
+            let total = 0;
+
+            todosOsBoletos.forEach(input => {
+                if (input.value > 0) {
+                    total = total + parseFloat(input.value);
+                }
+            });
+
+            document.getElementById('resultado').innerText = "Total: R$ " + total.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+        }
+
+        function adicionarCampo() {
+            const container = document.getElementById('container-boletos');
+            const numeroNovo = document.querySelectorAll('.boleto').length + 1;
+            
+            const novoInput = document.createElement('input');
+            novoInput.type = "number";
+            novoInput.className = "boleto";
+            novoInput.placeholder = "Valor do Boleto " + numeroNovo;
+            novoInput.oninput = somarBoletos;
+            
+            container.appendChild(novoInput);
+            novoInput.focus(); // Já coloca o teclado no novo campo
+        }
+
+        function removerUltimo() {
+            const container = document.getElementById('container-boletos');
+            const boletos = document.querySelectorAll('.boleto');
+            
+            if (boletos.length > 1) {
+                container.removeChild(boletos[boletos.length - 1]);
+                somarBoletos();
+            }
+        }
+    </script>
+</body>
+  </html>
+  
