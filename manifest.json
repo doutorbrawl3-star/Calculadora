@@ -1,0 +1,21 @@
+{
+  "name": "Boleto Calc Monalisa",
+  "short_name": "Boletos",
+  "description": "Calculadora de contas da Monalisa",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f4f4f9",
+  "theme_color": "#27ae60",
+  "icons": [
+    {
+      "src": "foto.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "foto.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
