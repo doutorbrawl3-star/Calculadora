@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <link rel="icon" type="image/jpeg" href="ca.jpg">
-    <link rel="apple-touch-icon" href="ca.jpg">
-    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/jpeg" href="./ca.jpg">
+    <link rel="apple-touch-icon" href="./ca.jpg">
+    <link rel="manifest" href="./manifest.json">
     
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -15,7 +15,6 @@
     <title>Calculadora da Monalisa</title>
 
     <style>
-        /* CSS Unificado */
         body {
             font-family: sans-serif;
             padding: 20px;
@@ -98,38 +97,31 @@
     <div id="resultado">Total: R$ 0,00</div>
 
     <script>
-        /* JavaScript Unificado */
         function somarBoletos() {
             const todosOsBoletos = document.querySelectorAll('.boleto');
             let total = 0;
-
             todosOsBoletos.forEach(input => {
                 if (input.value > 0) {
                     total = total + parseFloat(input.value);
                 }
             });
-
-            // Formatação para Real Brasileiro (R$)
             document.getElementById('resultado').innerText = "Total: R$ " + total.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
         }
 
         function adicionarCampo() {
             const container = document.getElementById('container-boletos');
             const numeroNovo = document.querySelectorAll('.boleto').length + 1;
-            
             const novoInput = document.createElement('input');
             novoInput.type = "number";
             novoInput.className = "boleto";
             novoInput.placeholder = "Valor do Boleto " + numeroNovo;
             novoInput.oninput = somarBoletos;
-            
             container.appendChild(novoInput);
         }
 
         function removerUltimo() {
             const container = document.getElementById('container-boletos');
             const boletos = document.querySelectorAll('.boleto');
-            
             if (boletos.length > 1) {
                 container.removeChild(boletos[boletos.length - 1]);
                 somarBoletos();
