@@ -15,12 +15,15 @@
     <title>Calculadora da Monalisa</title>
 
     <style>
-        /* O SEU CSS JUNTO AQUI */
+        /* CSS Unificado */
         body {
             font-family: sans-serif;
             padding: 20px;
             background-color: #f4f4f9;
             margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         h1 {
@@ -31,6 +34,8 @@
         }
 
         .container-inputs {
+            width: 100%;
+            max-width: 400px;
             margin-bottom: 20px;
         }
 
@@ -42,11 +47,12 @@
             font-size: 18px;
             border: 1px solid #ccc;
             border-radius: 8px;
-            box-sizing: border-box; /* Garante que não passe da largura da tela */
+            box-sizing: border-box;
         }
 
         button {
             width: 100%;
+            max-width: 400px;
             padding: 18px;
             color: white;
             border: none;
@@ -55,11 +61,6 @@
             font-weight: bold;
             cursor: pointer;
             margin-bottom: 10px;
-            transition: opacity 0.2s;
-        }
-
-        button:active {
-            opacity: 0.8;
         }
 
         .btn-add { background-color: #3498db; }
@@ -67,6 +68,8 @@
         .btn-soma { background-color: #2ecc71; font-size: 22px; margin-top: 10px; }
 
         #resultado {
+            width: 100%;
+            max-width: 400px;
             margin-top: 25px;
             text-align: center;
             color: #2c3e50;
@@ -75,6 +78,7 @@
             padding: 15px;
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-sizing: border-box;
         }
     </style>
 </head>
@@ -91,10 +95,10 @@
     <button class="btn-rem" onclick="removerUltimo()">- Remover Último</button>
     <button class="btn-soma" onclick="somarBoletos()">Somar Tudo</button>
 
-    <h2 id="resultado">Total: R$ 0,00</h2>
+    <div id="resultado">Total: R$ 0,00</div>
 
     <script>
-        /* O SEU JAVASCRIPT JUNTO AQUI */
+        /* JavaScript Unificado */
         function somarBoletos() {
             const todosOsBoletos = document.querySelectorAll('.boleto');
             let total = 0;
@@ -105,7 +109,8 @@
                 }
             });
 
-            document.getElementById('resultado').innerText = "Total: R$ " + total.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+            // Formatação para Real Brasileiro (R$)
+            document.getElementById('resultado').innerText = "Total: R$ " + total.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
         }
 
         function adicionarCampo() {
@@ -119,7 +124,6 @@
             novoInput.oninput = somarBoletos;
             
             container.appendChild(novoInput);
-            novoInput.focus(); // Já coloca o teclado no novo campo
         }
 
         function removerUltimo() {
@@ -133,5 +137,4 @@
         }
     </script>
 </body>
-  </html>
-  
+</html>
